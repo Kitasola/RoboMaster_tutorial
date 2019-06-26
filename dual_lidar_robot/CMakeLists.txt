@@ -142,6 +142,7 @@ set (CMAKE_CXX_STANDARD 14)
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/dual_lidar_robot_node.cpp)
 add_executable(synthesis_lrf src/synthesis_lrf.cpp)
+add_executable(move_lrf src/move_lrf.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
