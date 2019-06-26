@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(dual_LiDAR_robot)
+project(dual_lidar_robot)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -110,7 +110,7 @@ include_directories("/usr/include/eigen3")
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES dual_LiDAR_robot
+#  LIBRARIES dual_lidar_robot
 #  CATKIN_DEPENDS other_catkin_pkg
 #  DEPENDS system_lib
 )
@@ -128,7 +128,7 @@ include_directories(
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/dual_LiDAR_robot.cpp
+#   src/${PROJECT_NAME}/dual_lidar_robot.cpp
 # )
 set (CMAKE_CXX_STANDARD 14)
 
@@ -140,7 +140,7 @@ set (CMAKE_CXX_STANDARD 14)
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-# add_executable(${PROJECT_NAME}_node src/dual_LiDAR_robot_node.cpp)
+# add_executable(${PROJECT_NAME}_node src/dual_lidar_robot_node.cpp)
 add_executable(synthesis_lrf src/synthesis_lrf.cpp)
 
 ## Rename C++ executable without prefix
@@ -201,7 +201,7 @@ target_link_libraries(synthesis_lrf
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_dual_LiDAR_robot.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_dual_lidar_robot.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()

@@ -53,8 +53,8 @@ auto main(int argc, char **argv) -> int {
   geometry_msgs::TransformStamped tr_base, tr_laser_front, tr_laser_back;
   tf2::Quaternion laser_q;
 
-  tr_base.header.frame_id = target_name;
-  tr_base.child_frame_id = laser_front_name;
+  tr_base.header.frame_id = "base_footprint";
+  tr_base.child_frame_id = target_name;
   laser_q.setRPY(0, 0, 0);
   tr_base.transform.rotation.x = laser_q.x();
   tr_base.transform.rotation.y = laser_q.y();
@@ -77,7 +77,7 @@ auto main(int argc, char **argv) -> int {
 
   tr_laser_back.header.frame_id = target_name;
   tr_laser_back.child_frame_id = laser_back_name;
-  laser_q.setRPY(0, 0, 180);
+  laser_q.setRPY(0, 0, M_PI);
   tr_laser_back.transform.rotation.x = laser_q.x();
   tr_laser_back.transform.rotation.y = laser_q.y();
   tr_laser_back.transform.rotation.z = laser_q.z();
