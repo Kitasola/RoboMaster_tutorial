@@ -161,6 +161,9 @@ add_executable(move_lrf src/move_lrf.cpp)
 target_link_libraries(synthesis_lrf
   ${catkin_LIBRARIES}
 )
+target_link_libraries(move_lrf
+  ${catkin_LIBRARIES}
+)
 
 #############
 ## Install ##

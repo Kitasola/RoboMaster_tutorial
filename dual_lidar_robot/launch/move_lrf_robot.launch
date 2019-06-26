@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <launch>
-  <arg name="model" default="$(find dual_lidar_robot)/urdf/main_robot.urdf"/>
+  <arg name="model" default="$(find dual_lidar_robot)/urdf/move_lrf_robot.urdf"/>
   <arg name="gui" default="true"/>
   <param name="robot_description" command="$(find xacro)/xacro.py $(arg model)"/>
 
   <!-- rviz -->
-  <arg name="rvizconfig" default="$(find dual_lidar_robot)/rviz/main_robot.rviz"/>
+  <arg name="rvizconfig" default="$(find dual_lidar_robot)/rviz/move_lrf_robot.rviz"/>
   <param name="use_gui" value="$(arg gui)"/>
 
   <!-- gazebo -->
@@ -15,7 +15,7 @@
   <arg name="debug" default="false"/>
 
   <!-- rviz -->
-  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+  <!-- <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" /> -->
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
   <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true"/>
 
@@ -26,7 +26,7 @@
 
   <include file="$(find dual_lidar_robot)/launch/control.launch"/>
 
-  <node name="synthesis_lrf" pkg="dual_lidar_robot" type="synthesis_lrf" />
+  <node name="move_lrf" pkg="dual_lidar_robot" type="move_lrf" />
   <node name="turtle_teleop_key" pkg="turtlesim" type="turtle_teleop_key" args="/turtle1/cmd_vel:=/my_robo/diff_drive_controller/cmd_vel" />
 </launch>
 
