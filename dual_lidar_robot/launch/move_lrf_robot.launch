@@ -8,15 +8,8 @@
   <arg name="rvizconfig" default="$(find dual_lidar_robot)/rviz/move_lrf_robot.rviz"/>
   <param name="use_gui" value="$(arg gui)"/>
 
-  <!-- gazebo -->
-  <arg name="paused" default="false"/>
-  <arg name="use_sim_time" default="true"/>
-  <arg name="headless" default="false"/>
-  <arg name="debug" default="false"/>
-
   <!-- rviz -->
-  <!-- <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" /> -->
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
   <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true"/>
 
   <!-- gazrbo -->
@@ -26,7 +19,7 @@
 
   <include file="$(find dual_lidar_robot)/launch/control.launch"/>
 
-  <node name="move_lrf" pkg="dual_lidar_robot" type="move_lrf" />
-  <node name="turtle_teleop_key" pkg="turtlesim" type="turtle_teleop_key" args="/turtle1/cmd_vel:=/my_robo/diff_drive_controller/cmd_vel" />
+  <!-- <node name="move_lrf" pkg="dual_lidar_robot" type="move_lrf" /> -->
+  <!-- <node name="turtle_teleop_key" pkg="turtlesim" type="turtle_teleop_key" args="/turtle1/cmd_vel:=/my_robo/diff_drive_controller/cmd_vel" /> -->
 </launch>
 

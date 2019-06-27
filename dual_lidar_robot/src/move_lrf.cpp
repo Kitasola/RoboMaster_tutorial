@@ -90,7 +90,6 @@ auto main(int argc, char **argv) -> int {
   tf2_ros::TransformListener tfListener(tfBuffer);
 
   ros::Rate loop_rate(10);
-  double laser_high = 0;
   while (ros::ok()) {
     ros::spinOnce();
 
@@ -100,9 +99,6 @@ auto main(int argc, char **argv) -> int {
     br.sendTransform(tr_base);
 
     // Change lrf high
-    laser_high > 10.0 ? laser_high = 0 : laser_high += 0.5;
-    tr_laser_front.transform.translation.z = laser_high;
-    tr_laser_back.transform.translation.z = laser_high;
     tr_laser_front.header.stamp = ros::Time::now();
     tr_laser_back.header.stamp = ros::Time::now();
     br.sendTransform(tr_laser_front);
