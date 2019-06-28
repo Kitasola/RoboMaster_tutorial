@@ -66,7 +66,7 @@ int main(int argc, char **argv) {
   auto laser_front_high_pub = n.advertise<std_msgs::Float64>(
       "/my_robo/laser_front_controller/command", 10);
   auto laser_back_high_pub = n.advertise<std_msgs::Float64>(
-      "/my_robo/laser_front_controller/command", 10);
+      "/my_robo/laser_back_controller/command", 10);
 
   std::string target_name = "base_link";
   static tf2_ros::TransformBroadcaster br;
