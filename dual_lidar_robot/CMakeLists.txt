@@ -144,6 +144,7 @@ set (CMAKE_CXX_STANDARD 14)
 add_executable(synthesis_lrf src/synthesis_lrf.cpp)
 add_executable(move_lrf src/move_lrf.cpp)
 
+
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -161,6 +162,7 @@ add_executable(move_lrf src/move_lrf.cpp)
 target_link_libraries(synthesis_lrf
   ${catkin_LIBRARIES}
 )
+
 target_link_libraries(move_lrf
   ${catkin_LIBRARIES}
 )
