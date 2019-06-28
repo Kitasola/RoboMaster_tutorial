@@ -3,17 +3,19 @@
 #include <pcl_ros/transforms.h>
 #include <ros/console.h>
 #include <ros/ros.h>
+#include <sensor_msgs/JointState.h>
 #include <sensor_msgs/LaserScan.h>
 #include <sensor_msgs/PointCloud2.h>
+#include <std_msgs/Float64.h>
 #include <string>
 #include <tf2_ros/transform_broadcaster.h>
 #include <tf2_ros/transform_listener.h>
 #include <tf2_sensor_msgs/tf2_sensor_msgs.h>
 
-sensor_msgs::PointCloud2 cloud_front, cloud_back;
 std::string laser_front_name = "hokuyo_front_link",
             laser_back_name = "hokuyo_back_link";
 
+sensor_msgs::PointCloud2 cloud_front, cloud_back;
 void transformLaser(const sensor_msgs::LaserScan &data) {
   int max_size = (data.angle_max - data.angle_min) / data.angle_increment;
   pcl::PointCloud<pcl::PointXYZ> dummy_cloud;
@@ -38,7 +40,18 @@ void transformLaser(const sensor_msgs::LaserScan &data) {
   }
 }
 
-auto main(int argc, char **argv) -> int {
+std_msgs::Float64 laser_front_high, laser_back_high;
+void checkLaserPosition(const sensor_msgs::JointState &data) {
+  for (std::size_t i = 0; i < data.name.size(); ++i) {
+    if (data.name[i] == "hokuyo_joint_front") {
+      laser_front_high.data = data.position[i];
+    } else if (data.name[i] == "hokuyo_joint_back") {
+      laser_back_high.data = data.position[i];
+    }
+  }
+}
+
+int main(int argc, char **argv) {
   ros::init(argc, argv, "synthesis_laser");
   ros::NodeHandle n;
 
@@ -47,6 +60,13 @@ auto main(int argc, char **argv) -> int {
   auto scan_back_sub =
       n.subscribe("/rrbot/laser/scan_back", 10, transformLaser);
   auto scan_base_pub = n.advertise<sensor_msgs::PointCloud2>("scan_base", 10);
+
+  auto joint_states_laser_sub =
+      n.subscribe("joint_states", 10, checkLaserPosition);
+  auto laser_front_high_pub = n.advertise<std_msgs::Float64>(
+      "/my_robo/laser_front_controller/command", 10);
+  auto laser_back_high_pub = n.advertise<std_msgs::Float64>(
+      "/my_robo/laser_front_controller/command", 10);
 
   std::string target_name = "base_link";
   static tf2_ros::TransformBroadcaster br;
@@ -99,6 +119,10 @@ auto main(int argc, char **argv) -> int {
     br.sendTransform(tr_base);
 
     // Change lrf high
+    laser_front_high_pub.publish(laser_front_high);
+    laser_back_high_pub.publish(laser_back_high);
+    tr_laser_front.transform.translation.z = laser_front_high.data;
+    tr_laser_back.transform.translation.z = laser_back_high.data;
     tr_laser_front.header.stamp = ros::Time::now();
     tr_laser_back.header.stamp = ros::Time::now();
     br.sendTransform(tr_laser_front);

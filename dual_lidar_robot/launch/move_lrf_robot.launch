@@ -19,7 +19,13 @@
 
   <include file="$(find dual_lidar_robot)/launch/control.launch"/>
 
-  <!-- <node name="move_lrf" pkg="dual_lidar_robot" type="move_lrf" /> -->
-  <!-- <node name="turtle_teleop_key" pkg="turtlesim" type="turtle_teleop_key" args="/turtle1/cmd_vel:=/my_robo/diff_drive_controller/cmd_vel" /> -->
+  <!-- laser_high_control -->
+  <rosparam file="$(find dual_lidar_robot)/config/laser_controller.yaml" command="load"/>
+  <node name="laser_controller_spawner" pkg="controller_manager"
+    type="spawner" ns="my_robo" output="screen" 
+    args="laser_front_controller laser_back_controller"/>
+
+  <node name="move_lrf" pkg="dual_lidar_robot" type="move_lrf" output="screen"/>
+  <node name="turtle_teleop_key" pkg="turtlesim" type="turtle_teleop_key" args="/turtle1/cmd_vel:=/my_robo/diff_drive_controller/cmd_vel" />
 </launch>
 
