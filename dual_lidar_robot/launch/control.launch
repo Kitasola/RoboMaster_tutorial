@@ -2,10 +2,10 @@
 <launch>
 
   <!-- Load joint controller configurations from YAML file to parameter server -->
-  <rosparam file="$(find dual_lidar_robot)/config/controller.yaml" command="load"/>
+  <rosparam file="$(find dual_lidar_robot)/config/wheel_controller.yaml" command="load"/>
 
   <!-- load the controllers -->
-  <node name="controller_spawner" pkg="controller_manager"
+  <node name="wheel_controller_spawner" pkg="controller_manager"
     type="spawner" ns="my_robo" output="screen" 
   args="joint_state_controller
      diff_drive_controller"/>
