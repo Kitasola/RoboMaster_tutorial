@@ -1,0 +1,8 @@
+my_robo:
+  laser_front_controller:
+    type: position_controllers/JointPositionController
+    joint: hokuyo_joint_front
+
+  laser_back_controller:
+    type: position_controllers/JointPositionController
+    joint: hokuyo_joint_back
