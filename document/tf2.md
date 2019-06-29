@@ -26,8 +26,9 @@ try {
 
 ***
 
-tfで使われていたtransformPointCloudなどの[座標変換の関数](http://docs.ros.org/diamondback/api/tf/html/c++/classtf_1_1TransformListener.html)は, tf2では[doTransform]()のみとなっている(実態はtemplateを使って複数の型に対応している).
+tfで使われていたtransformPointCloudなどの[座標変換の関数](http://docs.ros.org/diamondback/api/tf/html/c++/classtf_1_1TransformListener.html)は, tf2ではtf2::doTransformのみとなっている(実態はtemplateを使って複数の型に対応している).
 
-### PointCloud2
-また tf2でsensor_msgs::PointCloudは座標変換できない. 代わりに後継のsensor_msgs::PointCloud2なら座標変換できる.   
-ただ, PointCloud2の構造は複雑なので, 別の型で作成したデータをPointCloud2に変換した方が楽である. [このプログラム](../dual_lidar_robot/src/synthesis_lrf.cpp)では, sensor_msgs::PointCloudに構造が近いpcl::PointCloud<pcl::PointXYZ>を用いた.
+### [PointCloud2]()
+  tf2でsensor_msgs::PointCloudは座標変換できない. 代わりに後継のsensor_msgs::PointCloud2なら座標変換できる.   
+  ただし, PointCloud2の構造は複雑なので, 別の型で作成したデータをPointCloud2に変換した方が楽である. [このプログラム](../dual_lidar_robot/src/synthesis_lrf.cpp)では, sensor_msgs::PointCloudに構造が近いpcl::PointCloud<pcl::PointXYZ>を用いた.   
+  また, PointCloud2同士の合成にも注意が必要である. 配列の要素数を表すwidth, 配列のバイト数を表すrow_stepを足し合わせた上で, 実際の値が入っているdataを結合しないといけない.
